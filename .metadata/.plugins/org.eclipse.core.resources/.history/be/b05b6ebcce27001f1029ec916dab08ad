@@ -1,0 +1,165 @@
+package examen2Final;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import daw.com.Teclado;
+
+abstract class Figura implements LeerDatos {
+    String nombre;
+    Tipo tipo;
+    int grosor;
+    int color;
+    List<Punto> puntos;
+
+    public Figura(String nombre, Tipo tipo, int grosor, int color, List<Punto> puntos) {
+        if (grosor <= 0) {
+            throw new IllegalArgumentException("El grosor debe ser un valor positivo.");
+        }
+        if (color < 0 || color > 255) {
+            throw new IllegalArgumentException("El color debe estar entre 0 y 255.");
+        }
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.grosor = grosor;
+        this.color = color;
+        this.puntos = puntos;
+    }
+    
+    public Figura() {
+    	this.nombre = "";
+    	this.tipo = Tipo.LINEA;
+    	this.grosor = 0;
+    	this.color = 0;
+    	this.puntos = new ArrayList<>();
+    }
+    
+    
+    public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		if (nombre == "") {
+			throw new IllegalArgumentException("Nombre vacio no valido");
+		}
+		this.nombre = nombre;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		
+		this.tipo = tipo;
+	}
+
+	public int getGrosor() {
+		return grosor;
+	}
+
+	public void setGrosor(int grosor) {
+		if (grosor < 0 ) {
+			throw new IllegalArgumentException("Grosor negativo no valido");
+		}
+		this.grosor = grosor;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
+	public void setColor(int color)  {
+		if (color < 0) {
+			throw new IllegalArgumentException("Color negativo no valido 0-255"); 
+		}
+		this.color = color;
+	}
+
+	public List<Punto> getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(List<Punto> puntos) {
+		this.puntos = puntos;
+	}
+	
+	public boolean deleteCoordenadas(int x,int y) {
+		boolean exito = false;
+		for (Punto punto : puntos) {
+			if (punto.getX() == x && punto.getY()== y) {
+				puntos.remove(punto);
+				exito =true;
+			}
+		}
+		return exito;
+		
+	}
+
+
+	@Override
+	public void leerID() {
+    	do {
+			 try {
+				setNombre(Teclado.leerString("Nombre de la figura"));
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		} while (nombre != null && !nombre.equalsIgnoreCase(""));
+	}
+
+
+	@Override
+	public void leerDatos() {
+		Punto p;
+		int cuantos;
+		boolean exito;
+		do {
+			try {
+				exito = false;
+				setTipo(Tipo.valueOf(Teclado.leerString("Tipo LINEA/PUNTOS/LINEA_PUNTEADA").toUpperCase()));
+				setGrosor(Teclado.leerInt("Grosor de la figura"));
+				setColor(Teclado.leerInt("Color de la figura"));
+				cuantos = Teclado.leerInt("Cuantos puntos tiene esta figura?");
+				for (int i = 0; i < cuantos; i++) {
+					p = new Punto();
+					p.leerPuntos();
+					puntos.add(p);
+				}
+				
+				
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				exito = true;
+			}
+		} while (exito);
+		
+		
+		
+	}
+
+	public void addPunto(Punto punto) {
+        puntos.add(punto);
+    }
+
+    public void removePunto(Punto punto) {
+        puntos.remove(punto);
+    }
+
+    public abstract double calcularPerimetro();
+
+	public void listarPuntos() {
+		for (Punto punto : puntos) {
+			System.out.println(punto.toString());
+		}
+		
+	}
+
+	
+	
+	
+	
+}

@@ -1,0 +1,51 @@
+package ejercicio1ex;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class App extends AppConMenu {
+
+	Biblioteca biblioteca;
+
+	public App() {
+		super();
+		addOpcion("Cambiar Nombre,fecha y autor del libro");
+		addOpcion("Añadir Libro");
+		addOpcion("Ordenar Libros");
+		addOpcion("Exportar a .CSV");
+		addOpcion("Exportar a .DAT");
+		
+		biblioteca = new Biblioteca();
+	}
+
+
+	@Override
+	public void evaluarOpcion(int opc) {
+		switch (opc) {
+		case 1:
+			
+			break;
+		case 2:
+			
+			break;
+			
+		case 3:
+			
+			break;
+		case 4:
+	
+			break;
+		case 5:
+	
+			break;
+
+		
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

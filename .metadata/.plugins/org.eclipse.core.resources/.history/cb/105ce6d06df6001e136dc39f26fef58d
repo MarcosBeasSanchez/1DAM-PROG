@@ -1,0 +1,51 @@
+package ejemploFechas;
+
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import daw.com.Teclado;
+
+public class Ej2 {
+
+	public static void main(String[] args) {
+		
+		// La cantidad de horas, minutos, segundos que quedan para las 21:15
+		LocalTime h;
+		LocalTime hl;
+		DateTimeFormatter formato;
+	
+		
+		
+		hl = LocalTime.of(21, 15, 00); // HoraLimite
+		h = LocalTime.parse(Teclado.leerString("(hh:mm:ss) =")); //hora usuario
+		
+		int horasRestantes = hl.getHour() - h.getHour();
+        int minutosRestantes = hl.getMinute() - h.getMinute();
+        int segundosRestantes = hl.getSecond() - h.getSecond();
+        
+        if (segundosRestantes < 0) {
+            minutosRestantes--;
+            segundosRestantes += 60;
+        }
+        if (minutosRestantes < 0) {
+            horasRestantes--;
+            minutosRestantes += 60;
+        };
+		
+        System.out.println("Quedan " + horasRestantes + " h, " + minutosRestantes + " min y " + segundosRestantes + " seg, para las 21:15");
+		
+    	Duration duration = Duration.between(h, hl);
+        //si H usuario es antes de 6:30
+        if (h.isBefore(LocalTime.of(6, 30))) {
+            System.out.println("Otros" " minutos más de sueño");
+        } else if (h.isBefore(LocalTime.of(7, 30))) {
+            System.out.println("Despierta...");
+        } else {
+            System.out.println("Arriba vagooooo");
+        }
+		
+		
+	}
+
+}

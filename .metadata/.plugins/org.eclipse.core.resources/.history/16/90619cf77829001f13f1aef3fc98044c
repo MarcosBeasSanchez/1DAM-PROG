@@ -1,0 +1,9 @@
+package ejercicio1ex;
+
+public enum Tipo {
+	
+	COMEDIA (0), TERROR(0.5) , AVENTURA (0.75), NOVELA (1);
+	
+	private final float precio;
+
+}

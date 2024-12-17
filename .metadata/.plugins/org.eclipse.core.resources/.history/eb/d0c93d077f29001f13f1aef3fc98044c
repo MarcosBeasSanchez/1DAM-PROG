@@ -1,0 +1,56 @@
+package ejercicio1ex;
+
+import java.time.LocalDate;
+
+import daw.com.Teclado;
+
+public class Bolsillo extends Libro {
+
+	int nPag;
+
+	public Bolsillo() {
+		super();
+		this.nPag = 0;
+	}
+
+	public Bolsillo(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha) {
+		super(nombre, autor, nautores, precio, tipo, fecha);
+		this.nPag = 0;
+	}
+
+	public int getnPag() {
+		return nPag;
+	}
+
+	public void setnPag(int nPag) {
+		if (nPag < 0) {
+			throw new IllegalArgumentException("Npag no puede ser menor que 0");
+		}
+		this.nPag = nPag;
+	}
+
+	@Override
+	public void precioTotal() {
+		float precioTotal = nPag * super.precio;
+		return precioTotal;
+	}
+	
+	public void leerDatos() {
+		boolean exito ;
+		do {
+			exito = false;
+			try {
+				setnPag(Teclado.leerInt("Numero de paginas"));
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				exito = true;
+			}
+		} while (exito);
+		
+	}
+	
+	
+}
+
+
+

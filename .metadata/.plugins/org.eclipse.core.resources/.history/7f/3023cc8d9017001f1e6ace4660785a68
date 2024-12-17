@@ -1,0 +1,7 @@
+package examenFinal;
+
+import java.util.function.Predicate;
+
+public class FiltrarCatalan extends Predicate<T> {
+
+}

@@ -1,0 +1,9 @@
+package examenFinal;
+
+import java.util.function.Predicate;
+
+public interface FiltrarCatalan implements  {
+	
+	
+
+}

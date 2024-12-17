@@ -1,0 +1,37 @@
+package ejercicio1ex;
+
+import java.time.LocalDate;
+
+public class Bolsillo extends Libro {
+
+	int nPag;
+
+	public Bolsillo() {
+		super();
+		this.nPag = 0;
+	}
+
+	public Bolsillo(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha) {
+		super(nombre, autor, nautores, precio, tipo, fecha);
+		this.nPag = 0;
+	}
+
+	public int getnPag() {
+		return nPag;
+	}
+
+	public void setnPag(int nPag) {
+		this.nPag = nPag;
+	}
+
+	@Override
+	public void precioTotal() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+}
+
+
+

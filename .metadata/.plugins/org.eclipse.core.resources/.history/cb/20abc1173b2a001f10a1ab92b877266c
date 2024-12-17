@@ -1,0 +1,34 @@
+package ejercicio1ex;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class App extends AppConMenu {
+	
+	List<Libro> libros;
+
+	public App() {
+		addOpcion("Cambiar Nombre,fecha y autor del libro");
+		addOpcion("Añadir Libro");
+		addOpcion("Ordenar Libros");
+		addOpcion("Exportar a .CSV");
+		addOpcion("Exportar a .DAT");
+	}
+
+	public App(ArrayList<String> opciones) {
+		super(opciones);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void evaluarOpcion(int opc) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

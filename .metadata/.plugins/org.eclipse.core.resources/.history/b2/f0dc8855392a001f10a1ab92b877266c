@@ -1,0 +1,81 @@
+package ejercicio1ex;
+
+import java.time.LocalDate;
+
+import daw.com.Teclado;
+
+public class Normal extends Libro implements Leer {
+	
+	boolean conTapaDura;
+	int nPag;
+	
+	public Normal(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha,
+			boolean conTapaDura, int nPag) {
+		super(nombre, autor, nautores, precio, tipo, fecha);
+		this.conTapaDura = conTapaDura;
+		this.nPag = nPag;
+	}
+	
+	public Normal() {
+		super();
+		this.conTapaDura = true;
+		this.nPag = 0;
+	}
+
+	public boolean isConTapaDura() {
+		return conTapaDura;
+	}
+
+	public void setConTapaDura(boolean conTapaDura) {
+		this.conTapaDura = conTapaDura;
+	}
+
+	public int getnPag() {
+		return nPag;
+	}
+
+	public void setnPag(int nPag) {
+		if (nPag < 0) {
+			throw new IllegalArgumentException("Npag no puede ser menor que 0");
+		}
+		this.nPag = nPag;
+	}
+	
+	@Override
+	public void leerTodo() {
+		super.leerTodo();
+		boolean exito;
+		
+		do {
+			exito=false;
+			try {
+				String res = Teclado.leerString("Con tapa dura: Si/No");
+				boolean respuesta = aboolean(res);
+				setConTapaDura(respuesta);
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				exito=true;
+			}
+		} while (exito);
+
+	}
+
+	private boolean aboolean(String res) {
+		boolean r;
+		if (res.equalsIgnoreCase("SI")) {
+			r = true;
+		}else if (res.equalsIgnoreCase("NO")) {
+			r = false;
+		}else {
+			throw new IllegalArgumentException("Dato introducido erroneo");
+		}
+		return r;
+	}
+
+	@Override
+	public float precioTotal() {
+		float precioTotal = nPag * super.getPrecio() / super.getTipo().getPrecioTipo();
+		return precioTotal;
+	}
+
+}

@@ -1,0 +1,9 @@
+package ejercicio1ex;
+
+public interface Leer {
+	
+	 LeerID();
+	
+	defau
+
+}

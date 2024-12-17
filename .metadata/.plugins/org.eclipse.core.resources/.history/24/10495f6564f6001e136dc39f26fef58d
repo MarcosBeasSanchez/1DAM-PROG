@@ -1,0 +1,23 @@
+package ejemploFechas;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+import daw.com.Teclado;
+
+public class Ej1 {
+
+	public static void main(String[] args) {
+
+		LocalDate fecha1, fecha2;
+		
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+		
+		fecha1= LocalDate.parse(Teclado.leerString("fecha1 = dd/mm/yyyy"), df);
+		fecha2= LocalDate.parse(Teclado.leerString("fecha2 = dd/mm/yyyy"), df);
+				
+		
+	}
+
+}

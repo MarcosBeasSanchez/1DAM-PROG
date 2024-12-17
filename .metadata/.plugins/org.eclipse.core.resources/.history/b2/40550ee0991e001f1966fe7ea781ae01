@@ -1,0 +1,37 @@
+package examen2Final;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+abstract class Figura implements Serializable {
+    String nombre;
+    Tipo tipo;
+    int grosor;
+    int color;
+    List<Punto> puntos;
+
+    public Figura(String nombre, Tipo tipo, int grosor, int color) {
+        if (grosor <= 0) {
+            throw new IllegalArgumentException("El grosor debe ser un valor positivo.");
+        }
+        if (color < 0 || color > 255) {
+            throw new IllegalArgumentException("El color debe estar entre 0 y 255.");
+        }
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.grosor = grosor;
+        this.color = color;
+        this.puntos = new ArrayList<>();
+    }
+
+    public void addPunto(Punto punto) {
+        puntos.add(punto);
+    }
+
+    public void removePunto(Punto punto) {
+        puntos.remove(punto);
+    }
+
+    public abstract double calcularPerimetro();
+}

@@ -1,0 +1,33 @@
+package ejemploFechas;
+
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import daw.com.Teclado;
+
+public class Ej2 {
+
+	public static void main(String[] args) {
+		
+		// La cantidad de horas, minutos, segundos que quedan para las 21:15
+		LocalTime h;
+		LocalTime hl;
+		Duration duracion;
+		DateTimeFormatter formato;
+		
+		
+		//hms = Teclado.leerInt("Introduce la hora formato: hh:mm:ss");
+		hl = LocalTime.of(21, 15, 00);
+		h = LocalTime.parse(Teclado.leerString("(hh:mm:ss)  = ")); //tambien con DateTimeFormatter
+		
+		//duracion = Duration.between(h, hl);
+		
+		formato = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		
+		System.out.println();
+		
+		
+	}
+
+}

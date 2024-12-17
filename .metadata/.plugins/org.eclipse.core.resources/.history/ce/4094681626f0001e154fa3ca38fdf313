@@ -1,0 +1,93 @@
+package colegio;
+
+import java.time.LocalDate;
+
+import daw.com.Teclado;
+
+public class Alumno extends Persona {
+	
+	private String curso;
+	private String grupo;
+	private TipoEstudios tipoEstudio;
+	private Profesor tutor;
+
+	public Alumno(String nif, String nombre, String apellidos, String poblacion, String anioNacimiento, String curso, String grupo , TipoEstudios tipoEstudio) {
+		super(nif, nombre, apellidos, poblacion, anioNacimiento);
+		this.curso = curso;
+		this.grupo = grupo;
+		this.tipoEstudio = tipoEstudio;
+	}
+	
+	public Alumno() {
+	super();
+	this.curso = "";
+	this.grupo = "";
+	this.tipoEstudio = TipoEstudios.ESO;
+	}
+	
+	public Alumno(String nif) {
+	super(nif, "", "", "", ""); // Llama al constructor de la clase base con los valores predeterminados
+	this.curso = "";
+	this.grupo = "";
+	this.tipoEstudio = TipoEstudios.ESO;
+	}
+	
+	//Getters Setters
+
+	public String getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+	public String getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
+	}
+
+	public TipoEstudios getTipoEstudio() {
+		return tipoEstudio;
+	}
+
+	public void setTipoEstudio(TipoEstudios tipoEstudio) {
+		this.tipoEstudio = tipoEstudio;
+	}
+	public Profesor getTutor() {
+		return tutor;
+	}
+
+	public void setTutor(Profesor tutor) {
+		this.tutor = tutor;
+	}
+	//Tostring
+
+	@Override
+	public String toString() {
+		return "Alumno"+ super.toString() +"[curso=" + curso + ", grupo=" + grupo + ", tipoEstudio=" + tipoEstudio + "]";
+	}
+	//Datos
+	public void leerOtrosDatos() {
+		super.leerOtrosDatos();
+		this.curso = Teclado.leerString("Curso");
+		this.grupo = Teclado.leerString("Grupo");
+		this.tipoEstudio = TipoEstudios.toEstudio(Teclado.leerString("Estudios[ESO/BACHILLERATO/CFGS/CFGM"));
+	}
+	
+	// Metodos
+	
+	public void enviarMsgTutor(String mensaje, Profesor profesor) {
+		 // Crear una instancia de Mensaje 
+        Mensaje mensajeEnviado = new Mensaje(this.getNombre(), LocalDate.now(),  mensaje);
+        
+        // Agregar el mensaje al buzón del profesor
+        profesor.recibirMensaje(mensajeEnviado);
+        
+        System.out.println(mensaje + " " + LocalDate.now());
+        System.out.println("Mensaje enviado desde " + this.getNombre() + " a " + alumno.getNombre() + ": " + mensaje);
+    }
+	}

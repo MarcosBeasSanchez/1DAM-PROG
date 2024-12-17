@@ -1,0 +1,124 @@
+package ejercicio1ex;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+public class Libro {
+	String nombre;
+	String autor;
+	int nautores;
+	float precio;
+	Tipo tipo;
+	LocalDate fecha;
+	
+	public Libro(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha) {
+		this.nombre = nombre;
+		this.autor = autor;
+		this.nautores = nautores;
+		this.precio = precio;
+		this.tipo = tipo;
+		this.fecha = fecha;
+	}
+	public Libro() {
+		this.nombre = "";
+		this.autor = "";
+		this.nautores = 0;
+		this.precio = 0;
+		this.tipo = Tipo.AVENTURA;
+		this.fecha = LocalDate.now();
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		if (nombre.equalsIgnoreCase("") || nombre == null) {
+			throw new IllegalArgumentException("Error el nombre no puede estar vacio");
+		}
+		this.nombre = nombre;
+	}
+	public String getAutor() {
+		return autor;
+	}
+	public void setAutor(String autor) {
+		
+		this.autor = autor;
+	}
+	public int getNautores() {
+		return nautores;
+	}
+	public void setNautores(int nautores) {
+		if (nautores < 1) {
+			throw new IllegalArgumentException("Autores no pueden ser menor que 1");
+		}
+		this.nautores = nautores;
+	}
+	public float getPrecio() {
+		return precio;
+	}
+	public void setPrecio(float precio) {
+		if (precio < 0) {
+			throw new IllegalArgumentException("Precio no puede ser negativo");
+		}
+		this.precio = precio;
+	}
+	public Tipo getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(Tipo tipo) {
+		boolean tipoValido = false;
+		   if (tipo == null) {
+		        throw new IllegalArgumentException("El valor introducido no es correcto: null");
+		    }
+		   
+		   tipoValido = tipo.comprobar(tipo);
+
+		   if (!tipoValido) {
+		        throw new IllegalArgumentException("El valor introducido no es correcto: " + tipo);
+		        }
+
+		    this.tipo = tipo;
+	}
+	public LocalDate getFecha() {
+		return fecha;
+	}
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+	
+	@Override
+	public String toString() {
+		return "Libro [nombre=" + nombre + ", autor=" + autor + ", nautores=" + nautores + ", precio=" + precio
+				+ ", tipo=" + tipo + ", fecha=" + fecha + "]";
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		
+		Libro other = (Libro) obj;
+		return Objects.equals(nombre, other.nombre);
+		}
+	
+	
+	public abstract precioTotal(precio);
+	
+	
+	
+	}
+	
+	
+	
+
+
+	
+	
+	
+	
+

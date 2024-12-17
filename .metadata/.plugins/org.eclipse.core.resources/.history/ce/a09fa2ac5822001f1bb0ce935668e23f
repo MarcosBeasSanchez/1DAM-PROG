@@ -1,0 +1,198 @@
+package examen2Final;
+
+import java.io.*;
+import java.time.LocalDate;
+import java.util.*;
+
+public class Main extends AppConMenu{
+    static final String FILE_NAME = "lienzo.dat";
+    static Lienzo lienzo;
+    
+
+    public static void main(String[] args) {
+    	
+        File file = new File(FILE_NAME);
+
+        if (file.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                lienzo = (Lienzo) ois.readObject();
+                System.out.println("Lienzo cargado desde el archivo.");
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error al cargar el lienzo: " + e.getMessage());
+                lienzo = crearLienzo();
+            }
+        } else {
+            lienzo = crearLienzo();
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.println("Seleccione una opción: ");
+            System.out.println("1. Cambiar nombre y fecha del lienzo");
+            System.out.println("2. Añadir Figura");
+            System.out.println("3. Borrar Coordenadas");
+            System.out.println("4. Exportar a CSV");
+            System.out.println("5. Salir");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (opcion) {
+                case 1:
+                    cambiarNombreYFechaLienzo(scanner);
+                    break;
+                case 2:
+                    anadirFigura(scanner);
+                    break;
+                case 3:
+                    borrarCoordenadas(scanner);
+                    break;
+                case 4:
+                    exportarACSV();
+                    break;
+                case 5:
+                    salir();
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
+
+        scanner.close();
+    }
+    
+    @Override
+	public void evaluarOpcion(int opc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+    private static Lienzo crearLienzo() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del lienzo: ");
+        String nombre = scanner.nextLine();
+        LocalDate fecha = LocalDate.now();
+        return new Lienzo(nombre, fecha);
+    }
+
+    private static void cambiarNombreYFechaLienzo(Scanner scanner) {
+        System.out.print("Ingrese el nuevo nombre del lienzo: ");
+        String nuevoNombre = scanner.nextLine();
+        lienzo.nombre = nuevoNombre;
+
+        LocalDate nuevaFecha;
+        do {
+            System.out.print("Ingrese la nueva fecha de creación (YYYY-MM-DD): ");
+            nuevaFecha = LocalDate.parse(scanner.nextLine());
+        } while (nuevaFecha.isAfter(LocalDate.now()));
+
+        lienzo.fechaCreacion = nuevaFecha;
+    }
+
+    private static void anadirFigura(Scanner scanner) {
+        System.out.print("Ingrese el nombre de la figura: ");
+        String nombreFigura = scanner.nextLine();
+
+        if (lienzo.getFiguraByName(nombreFigura) != null) {
+            System.out.println("El nombre de la figura ya existe. Figuras en el lienzo:");
+            lienzo.figuras.forEach(figura -> System.out.println(figura.nombre));
+            return;
+        }
+
+        System.out.print("Ingrese el tipo de figura (rombo/pentagono): ");
+        String tipoFigura = scanner.nextLine().toLowerCase();
+
+        Tipo tipo;
+        int grosor, color;
+        Punto p;
+        System.out.print("Ingrese el tipo (LINEA, PUNTOS, LINEA_PUNTEADA): ");
+        tipo = Tipo.valueOf(scanner.nextLine().toUpperCase());
+        System.out.print("Ingrese el grosor: ");
+        grosor = scanner.nextInt();
+        System.out.print("Ingrese el color (0-255): ");
+        color = scanner.nextInt();
+        
+       // p = new Punto();
+       // p.leerPuntos();
+        
+              
+        
+
+        if (tipoFigura.equals("rombo")) {
+            System.out.print("Ingrese el lado mayor del rombo: ");
+            int ladoMayor = scanner.nextInt();
+            System.out.print("Ingrese el lado menor del rombo: ");
+            int ladoMenor = scanner.nextInt();
+            Rombo rombo = new Rombo(nombreFigura, tipo, grosor, color, ladoMayor, ladoMenor);
+            lienzo.addFigura(rombo);
+        } else if (tipoFigura.equals("pentagono")) {
+            System.out.print("Ingrese el número de lados del pentágono: ");
+            int numeroLados = scanner.nextInt();
+            Pentagono pentagono = new Pentagono(nombreFigura, tipo, grosor, color, numeroLados);
+            lienzo.addFigura(pentagono);
+        } else {
+            System.out.println("Tipo de figura no válido.");
+        }
+        scanner.nextLine();  // Consume newline
+    }
+
+    private static void borrarCoordenadas(Scanner scanner) {
+        System.out.print("Ingrese el nombre de la figura: ");
+        String nombreFigura = scanner.nextLine();
+        Figura figura = lienzo.getFiguraByName(nombreFigura);
+
+        if (figura == null) {
+            System.out.println("La figura no existe.");
+            return;
+        }
+
+        System.out.println("Puntos de la figura:");
+        figura.puntos.forEach(System.out::println);
+
+        System.out.print("Ingrese las coordenadas X del punto a borrar: ");
+        int x = scanner.nextInt();
+        System.out.print("Ingrese las coordenadas Y del punto a borrar: ");
+        int y = scanner.nextInt();
+
+        Punto puntoABorrar = new Punto(x, y);
+        if (figura.puntos.contains(puntoABorrar)) {
+            figura.removePunto(puntoABorrar);
+            System.out.println("Punto borrado.");
+        } else {
+            System.out.println("El punto no existe.");
+        }
+    }
+
+    private static void exportarACSV() {
+        try (PrintWriter writer = new PrintWriter(new File("figuras.csv"))) {
+            List<Figura> figurasConPerimetroMayorA2 = new ArrayList<>();
+            for (Figura figura : lienzo.figuras) {
+                if (figura.calcularPerimetro() > 2) {
+                    figurasConPerimetroMayorA2.add(figura);
+                }
+            }
+            figurasConPerimetroMayorA2.sort((f1, f2) -> f2.nombre.compareTo(f1.nombre));
+            for (Figura figura : figurasConPerimetroMayorA2) {
+                writer.println(figura.nombre + "," + figura.calcularPerimetro());
+            }
+            System.out.println("Figuras exportadas a figuras.csv.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error al exportar a CSV: " + e.getMessage());
+        }
+    }
+
+    private static void salir() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            oos.writeObject(lienzo);
+            System.out.println("Lienzo guardado en " + FILE_NAME);
+        } catch (IOException e) {
+            System.out.println("Error al guardar el lienzo: " + e.getMessage());
+        }
+    }
+
+	
+}
+

@@ -1,0 +1,23 @@
+package EjerciciosCasa;
+
+import daw.com.Teclado;
+
+public class Condicionales_15 {
+
+	public static void main(String[] args) {
+		// Mostrar el nombre de un alumno, su carrera y el tipo de trabajo; si estudia y trabaja como
+		// primera condición y como segunda condición si solo estudia su nombre y la carrera que está
+		// estudiando.
+		
+		String nombre, opcion;
+		
+		Teclado.leerString("Dime tu nombre");
+		Teclado.leerString("\n1.Estudias o \n2.Estudias y trabajas");
+		
+		
+		
+		
+
+	}
+
+}

@@ -1,0 +1,155 @@
+package examenFinal;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
+import daw.com.Teclado;
+import practicaFinalProfe.AppPracticaFinal;
+
+public class App extends AppConMenu{
+	
+	Plataforma plataforma;
+
+	public App() {
+		super();
+		addOpcion("Insertar nuevo material");
+		addOpcion("Dar de alta a un nuevo cliente");
+		addOpcion("Realizar una ecucha");
+		addOpcion("Añadir catalan a todos los podcast que no lo tengan");
+		
+		plataforma = new Plataforma();
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		App app = new App();
+		
+
+	}
+
+	@Override
+	public void evaluarOpcion(int opc) {
+		
+		switch (opc) {
+		case 1:
+				insertarMaterial();
+			break;
+
+		case 2:
+				darAltaCliente();
+			break;
+		case 3:
+				realizarEscucha();
+			break;
+		case 4:
+				catalan();
+			break;
+		case 5:
+				salir();
+			break;
+		}	}
+
+	private void salir() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void catalan() {
+		
+	Predicate<Podcast>filtroCatalan = new FiltrarCatalan();
+	
+	for (Material i : plataforma.materiales) {
+		if (i instanceof Podcast) {
+			 Podcast podcast = (Podcast) i;
+	            if (filtroCatalan.test(podcast)) {
+	                podcast.getIdiomas().add("Catalán");
+	            }
+			}
+		}
+		
+		
+	}
+
+	private void realizarEscucha() {
+		String id;
+		boolean exito = false;
+		Cliente cliente;
+		
+		do {
+			id = Teclado.leerString("ID cliente a buscar");
+			
+			if (plataforma.existeCliente(id)) {
+				
+				List<Material>materialesDisponibles = ;
+				
+			}else {
+				System.out.println("ID del cliente no existe");
+			}
+			
+		} while (exito);
+		
+	}
+		
+	
+
+	private void darAltaCliente() {
+		String id;
+		boolean exito = false;
+		Cliente cliente;
+		
+		do {
+			id = Teclado.leerString("ID cliente");
+			
+			if (!plataforma.existeCliente(id)) {
+				cliente = new Cliente(id);
+				cliente.leerDatosHerencia();
+				plataforma.addCliente(cliente);
+			}else {
+				System.out.println("ID del cliente ya existe");
+			}
+			
+		} while (exito);
+		
+	}
+
+	private void insertarMaterial() {
+		String id;
+		int opc;
+		Material m = null;
+		boolean exito;
+		
+		do {
+			id = Teclado.leerString("ID del material");
+		
+		if (!plataforma.existeMaterial(id)) {
+			
+			do {
+				opc=Teclado.leerInt("1.podcast/2.cancion");
+				switch (opc) {
+				case 1:
+					m = new Podcast(id);
+					break;
+				case 2:
+					m = new Cancion(id);
+					break;
+				default:
+					System.out.println("numero no válido");
+					break;
+				}
+			} while (m instanceof Podcast || m instanceof Cancion);
+			
+			m.leerDatosHerencia();
+			plataforma.addMaterial(m);
+			exito = false;
+			
+		}else {
+			
+			System.out.println("material ya existente");
+			plataforma.listarMaterialesExistentes();
+			exito= true;
+		}
+		} while (exito);
+	}
+
+}

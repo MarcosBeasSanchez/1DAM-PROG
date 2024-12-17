@@ -1,0 +1,194 @@
+package examenFinal;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Plataforma {
+	private static final String clientes_archivo = "clientes.csv";
+	private static final String materiales_archivo = "materiales.dat";
+	private static final String escuchas_archivo = "escuchas.csv";
+	
+	private List<Cliente>clientes= new ArrayList<Cliente>();
+	public List<Material>materiales= new ArrayList<Material>();
+	private List<Escucha>escuchas= new ArrayList<Escucha>();
+
+	public  Plataforma() { //cuando se llama inicializa las cargas de los archivos
+		cargarClientes();
+		cargarMateriales();
+		cargarEscuchas();
+	}
+	
+	private void cargarClientes() {
+		try (BufferedReader br = new BufferedReader(new FileReader(clientes_archivo))){
+			String linea;
+			Cliente cliente;
+			while (br.ready()) {
+				linea = br.readLine();
+				cliente = new Cliente();
+				cliente.fromCsv(linea);
+				clientes.add(cliente);
+			}
+		} catch (IOException e) {
+			System.out.println("error leyendo fichero");
+		}
+			}
+	
+	private void cargarEscuchas() {
+		try (BufferedReader br = new BufferedReader(new FileReader(escuchas_archivo))) {
+			String linea;
+			Escucha escucha;
+			while(br.ready()) {
+				linea = br.readLine();
+				escucha = new Escucha();
+				escucha.fromCsv(linea);
+				escuchas.add(escucha);
+				
+			}
+		} catch (IOException e) {
+			System.out.println("Error leyendo datos...");
+		}
+	}
+	
+	private void cargarMateriales() {
+		try (DataInputStream di = new DataInputStream(new FileInputStream(materiales_archivo))){
+			int cuantos;
+			String tipo;
+			Material material;
+			
+			cuantos = di.readInt(); //lee cuantos materiales hay en el arraylist(podcast y canciones)
+			if (cuantos > 0) {
+				for (int i = 0; i < cuantos; i++) {
+					tipo = di.readUTF(); // lee el tipo de material
+					
+					switch (tipo) {
+					case "PODCAST":
+						material = new Podcast();
+						material.leerFichero(di);
+						materiales.add(material);
+						break;
+
+					case "CANCION":
+						material = new Cancion();
+						material.leerFichero(di);;
+						materiales.add(material);
+						break;
+						
+					}
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Error leyendo archivo materiales");
+		}
+	}
+	
+	public void guardarClientes() {
+		try (PrintWriter salida = new PrintWriter(new FileWriter(clientes_archivo))){
+			for (Cliente c : clientes) {
+				c.toCsv();
+			}
+		} catch (IOException e) {
+			System.out.println("ERROR guardando clientes");
+		}
+	}
+	
+	public void guardarMateriales() {
+		
+		try(DataOutputStream salida = new DataOutputStream(new FileOutputStream(materiales_archivo))) {
+			
+			salida.writeInt(materiales.size());
+			
+			for (Material m : materiales) {
+				if (m instanceof Podcast) {
+					salida.writeUTF("PODCAST");
+					m = new Podcast();
+					m.escribirFichero(salida);
+					
+				}else {
+					salida.writeUTF("CANCION");
+					m= new Cancion();
+					m.escribirFichero(salida);
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("ERROR guardando materiales");
+		}
+		
+	}
+
+	public void guardarEscuchas() {
+		try (PrintWriter salida = new PrintWriter(new FileWriter(escuchas_archivo))){
+			for (Escucha e : escuchas) {
+				e.toCsv();
+			}
+		} catch (Exception e) {
+			System.out.println("ERROR guardando escuchas");
+		}
+	}
+	
+	public boolean existeCliente(String id) {
+		boolean existe = false;
+		
+		for (Cliente c : clientes) {
+			if (c.getNif().equalsIgnoreCase(id)) {
+				existe = true;
+			}
+		}
+		return existe;
+	}
+	
+	public boolean existeMaterial(String id) {
+		boolean existe = false;
+		
+		for (Material m : materiales) {
+		 if (m.getId().equalsIgnoreCase(id)) {
+			existe = true;
+		}
+		}
+		return existe;
+	}
+	
+	public boolean existeEscucha(String idCancion,String idCliente) {
+		boolean existe = false;
+		
+		for (Escucha e : escuchas) {
+		if (e.getIdMaterial().equalsIgnoreCase(idCancion) && e.getNifcliente().equalsIgnoreCase(idCliente)) {
+			existe = true;
+		}
+		}
+		return existe;
+	}
+	
+	public void addMaterial(Material m) {
+		materiales.add(m);
+	}
+
+	public void listarMaterialesExistentes() {
+		for (Material m : materiales) {
+			System.out.println(m.toString());
+		}
+		
+	}
+
+	public void addCliente(Cliente cliente) {
+		clientes.add(cliente);	
+	}
+
+	public void addEscucha(Escucha escuchaSeleccion) {
+		escuchas.add(escuchaSeleccion);
+		
+	}
+	
+	
+	
+	
+
+}

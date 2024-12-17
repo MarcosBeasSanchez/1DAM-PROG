@@ -1,0 +1,37 @@
+package examenFinal;
+
+import daw.com.Teclado;
+
+public class prueba {
+
+	public static void main(String[] args) {
+		boolean exito;
+		String nif;
+		do {
+			try {
+				exito = false;
+				nif = prueba(Teclado.leerString("nif cliente"));
+			} catch (NullPointerException | IllegalArgumentException e) {
+				exito = true;
+				System.out.println(e.getMessage());
+			}
+	
+		} while (exito);
+		
+		System.out.println("saliendo....");
+		
+		System.out.println();
+		
+	}
+
+	public static String prueba(String nif) {
+		
+		/*if (nif.equalsIgnoreCase("")) {
+			throw new IllegalArgumentException("Nif vacio");
+		}*/
+		
+		if (nif == null) {
+			throw new IllegalArgumentException("Nif Null");
+		}
+	}
+}

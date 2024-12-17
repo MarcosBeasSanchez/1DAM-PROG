@@ -1,0 +1,10 @@
+package examen2Final;
+
+public class Test {
+
+	public static void main(String[] args) {
+		Figura f = new Figura();
+
+	}
+
+}

@@ -1,0 +1,45 @@
+package Arrays;
+
+import daw.com.Teclado;
+
+public class arrayEjer22 {
+
+	public static void main(String[] args) {
+		/*Leer 10 números enteros, almacenarlos en un vector 
+		y determinar cuántas veces está repetido el mayor. */
+		
+		 int arrayNum[];
+		 int max = 4;
+		 arrayNum = new int[4];
+		 
+		 leerArray(arrayNum, max); 
+		// determinarMayor(arrayNum);
+		 
+		 System.out.println("fin");
+		
+		
+		
+		
+	}
+	
+	/*private static int determinarMayor(int[] arrayNum) {
+		
+		int numMayor = arrayNum[1];
+		
+		for (int i = 0; i < arrayNum.length;i++) {
+			if(numMayor < arrayNum[i])
+				arrayNum[i]=numMayor;
+		}
+		
+		return numMayor;
+	}*/
+	
+	private static void leerArray(int[] arrayNum, int max){
+		
+		
+		for(int i = 0; 0 == max ; i++) {
+			arrayNum[i] = Teclado.leerInt("Num" + "[" + i + "] = ");
+		}
+	}
+
+}

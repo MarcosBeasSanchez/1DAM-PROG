@@ -1,0 +1,20 @@
+package examen2Final;
+
+class Pentagono extends Figura {
+    int numeroDeLados;
+
+    public Pentagono(String nombre, Tipo tipo, int grosor, int color, int numeroDeLados) {
+        super(nombre, tipo, grosor, color);
+        this.numeroDeLados = numeroDeLados;
+    }
+
+    @Override
+    public double calcularPerimetro() {
+        return numeroDeLados * grosor;
+    }
+
+    @Override
+    public String toString() {
+        return "Pentagono: " + nombre + " con " + numeroDeLados + " lados";
+    }
+}

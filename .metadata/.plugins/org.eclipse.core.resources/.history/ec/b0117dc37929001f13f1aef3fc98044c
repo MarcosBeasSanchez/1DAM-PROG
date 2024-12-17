@@ -1,0 +1,35 @@
+package ejercicio1ex;
+
+import java.time.LocalDate;
+
+public class Libro {
+	String nombre;
+	String autor;
+	int nautores;
+	float precio;
+	Tipo tipo;
+	LocalDate fecha;
+	
+	public Libro(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha) {
+		this.nombre = nombre;
+		this.autor = autor;
+		this.nautores = nautores;
+		this.precio = precio;
+		this.tipo = tipo;
+		this.fecha = fecha;
+	}
+	public Libro() {
+		this.nombre = "";
+		this.autor = "";
+		this.nautores = 0;
+		this.precio = 0;
+		this.tipo = Tipo.AVENTURA;
+		this.fecha = LocalDate.now();
+	}
+	
+	
+	
+	
+	
+
+}

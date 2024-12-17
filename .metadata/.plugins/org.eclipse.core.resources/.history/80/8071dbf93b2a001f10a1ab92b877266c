@@ -1,0 +1,89 @@
+package ejercicio1ex;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import daw.com.Teclado;
+import practicaFinalProfe.Libreria;
+
+public class Biblioteca implements Leer {
+	
+	String nombre;
+	List<Libro> libros;
+
+	public Biblioteca(String nombre, List<Libro> libros) {
+		this.nombre = nombre;
+		this.libros = libros;
+	}
+	
+	public Biblioteca() {
+		setNombre(Teclado.leerString("Nombre de la biblioteca"));
+		this.libros = new ArrayList<Libro>();
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		if (nombre == "" || nombre == null) {
+			throw new IllegalArgumentException("El nombre no puede ser vacio o null");
+		}
+		this.nombre = nombre;
+	}
+
+	public List<Libro> getLibros() {
+		return libros;
+	}
+
+	public void setLibros(List<Libro> libros) {
+		this.libros = libros;
+	}
+
+	
+	
+	public boolean existeLibro(String nombre) {
+		boolean existe = false;
+		
+		for (Libro libro : libros) {
+			libro.getNombre().equalsIgnoreCase(nombre);
+			existe = true;
+			break;
+		}
+		return existe;
+	}
+
+
+	@Override
+	public void leerDatos() {
+		int cuantos;
+		int tipo;
+		Libro li;
+		String name;
+		
+		cuantos = Teclado.leerInt("Cuatos libros hay en la biblioteca");
+		
+		for (int i = 0; i < cuantos; i++) {
+			tipo = Libreria.leerEntreLimites(1, 2, "1.Normal 2.Bolsillo");
+			name = Teclado.leerString("Nombre del libro");
+			if (!existeLibro(name)) {
+				if (tipo == 1) {
+					li =new Normal(name);
+				} else {
+					li = new Bolsillo(name);
+				}
+				li.leerDatos();
+				libros.add(li);
+			}else {
+				System.out.println("el nombre del libro introducido ya existe");
+			}
+		}
+	}
+
+	@Override
+	public void leerID() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

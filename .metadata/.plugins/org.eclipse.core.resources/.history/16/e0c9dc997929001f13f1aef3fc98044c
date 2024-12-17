@@ -1,0 +1,16 @@
+package ejercicio1ex;
+
+import java.time.LocalDate;
+
+public class Libro {
+	String nombre;
+	String autor;
+	int nautores;
+	float precio;
+	Tipo tipo;
+	LocalDate fecha;
+	
+	
+	
+
+}

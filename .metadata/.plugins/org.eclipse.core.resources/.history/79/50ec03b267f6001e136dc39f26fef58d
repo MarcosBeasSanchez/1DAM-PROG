@@ -1,0 +1,15 @@
+package ejemploFechas;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+public class Ej2 {
+
+	public static void main(String[] args) {
+
+		LocalTime hora;
+		
+		DateTimeFormatter df = DateTimeFormatter
+	}
+
+}

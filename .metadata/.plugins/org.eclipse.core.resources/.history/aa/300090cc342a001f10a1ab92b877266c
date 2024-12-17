@@ -1,0 +1,9 @@
+package ejercicio1ex;
+
+public class Biblioteca implements Leer {
+
+	public Biblioteca() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

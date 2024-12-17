@@ -1,0 +1,12 @@
+package examenFinal;
+
+public interface LeerDatos {
+
+	void leerID();
+	void leerDatos();
+	
+	default void leerDatosHerencia(){
+		leerID();
+		leerDatos();
+	}
+}

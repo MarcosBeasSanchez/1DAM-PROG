@@ -1,0 +1,70 @@
+package examen2Final;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import daw.com.Teclado;
+
+class Rombo extends Figura implements LeerDatos{
+    int ladoMayor, ladoMenor;
+
+    public Rombo(String nombre, Tipo tipo, int grosor, int color, List<Punto>puntos, int ladoMayor, int ladoMenor) {
+        super(nombre, tipo, grosor, color, puntos);
+        this.ladoMayor = ladoMayor;
+        this.ladoMenor = ladoMenor;
+    }
+    public Rombo() {
+    	super();
+    	this.ladoMayor = 0;
+    	this.ladoMenor = 0;
+    }
+    
+    public int getLadoMayor() {
+		return ladoMayor;
+	}
+	public void setLadoMayor(int ladoMayor) {
+		
+		this.ladoMayor = ladoMayor;
+	}
+	public int getLadoMenor() {
+		return ladoMenor;
+	}
+	public void setLadoMenor(int ladoMenor) {
+		this.ladoMenor = ladoMenor;
+	}
+	
+	
+	@Override
+	public void leerSoloDatos() {
+		super.leerSoloDatos();
+			setLadoMayor(Teclado.leerInt("Lado Mayor "));
+			setLadoMenor(Teclado.leerInt("Lado Menor "));	
+	
+	}
+	@Override
+    public double calcularPerimetro() {
+        double d1 = ladoMayor;
+        double d2 = ladoMenor;
+        return 2 * Math.sqrt(d1 * d1 + d2 * d2);
+    }
+
+    @Override
+    public String toString() {
+        return "Rombo: " + nombre + " con lado mayor " + ladoMayor + " y lado menor " + ladoMenor;
+    }
+    
+    public void guardarDatos(DataOutputStream salida) throws IOException {
+    	super.guardarDatos(salida);
+    	salida.writeInt(ladoMayor);
+    	salida.writeInt(ladoMenor);
+    }
+    
+    public void leerEntrada(DataInputStream entrada) throws IOException {
+    	super.leerEntrada(entrada);
+    	ladoMayor = entrada.readInt();
+    	ladoMenor = entrada.readInt();
+    }
+    
+}
