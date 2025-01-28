@@ -3,10 +3,6 @@ package examenFinal;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -36,7 +32,6 @@ public class Plataforma {
 			}
 		}
 			
-	
 	public void cargarEscuchas(BufferedReader br) throws IOException {
 		
 			String linea;
@@ -50,9 +45,6 @@ public class Plataforma {
 				escuchas.add(escucha);
 			}
 	}
-
-		
-	
 	
 	public void cargarMateriales(DataInputStream di) throws IOException {
 		
@@ -61,11 +53,13 @@ public class Plataforma {
 			Material material;
 			
 			cuantos = di.readInt(); //lee cuantos materiales hay en el arraylist(podcast y canciones)
+			
 			if (cuantos > 0) {
 				for (int i = 0; i < cuantos; i++) {
 					tipo = di.readUTF(); // lee el tipo de material
 					
 					switch (tipo) {
+					
 					case "PODCAST":
 						material = new Podcast();
 						material.leerFichero(di);
@@ -86,24 +80,21 @@ public class Plataforma {
 	public void guardarClientes(PrintWriter pw)  {
 		
 			for (Cliente c : clientes) {
-				pw.println(c.toCsv()); //
+				pw.println(c.toCsv()); 
 			}
 	}
 	
 	public void guardarMateriales(DataOutputStream salida) throws IOException {
 		
-			salida.writeInt(materiales.size());
+			salida.writeInt(materiales.size());  // Guardamos el tamaño de la lista de materiales
 			
 			for (Material m : materiales) {
 				if (m instanceof Podcast) {
 					salida.writeUTF("PODCAST");
-					m = new Podcast();
-					m.escribirFichero(salida);
 				}else {
 					salida.writeUTF("CANCION");
-					m= new Cancion();
-					m.escribirFichero(salida);
 				}
+				m.escribirFichero(salida); // Escribimos los datos del material original
 			}		
 	}
 
@@ -151,13 +142,6 @@ public class Plataforma {
 		materiales.add(m);
 	}
 
-	public void listarMaterialesExistentes() {
-		for (Material m : materiales) {
-			System.out.println(m.toString());
-		}
-		
-	}
-
 	public void addCliente(Cliente cliente) {
 		clientes.add(cliente);	
 	}
@@ -166,7 +150,33 @@ public class Plataforma {
 		escuchas.add(escuchaSeleccion);
 		
 	}
+
+	public void listarClientes() {
+		clientes.forEach(System.out::println);
+	}
 	
+	public void listarMaterialesExistentes() {
+		for (Material m : materiales) {
+		System.out.println(m);
+		}
+		
+	}
+
+	public void listarEscuchas() {
+
+		escuchas.forEach(System.out::println);
+
+	}
+	
+	public boolean existenDatos() {
+		boolean existe = true;
+		
+		if (clientes.isEmpty() && materiales.isEmpty() && escuchas.isEmpty()) {
+			existe = false;
+		}
+		return existe;
+		
+	}
 	
 	
 	

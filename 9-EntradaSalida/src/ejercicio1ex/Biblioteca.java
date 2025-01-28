@@ -23,8 +23,17 @@ public class Biblioteca  {
 	}
 	
 	public Biblioteca() {
-		setNombre(Teclado.leerString("Nombre de la biblioteca"));
+		this("",new ArrayList<>());
+	}
+	
+	public Biblioteca(String nombre) {
+		setNombre(nombre);
 		this.libros = new ArrayList<Libro>();
+	}
+	
+	public Biblioteca(String nombre,ArrayList<Libro> libros) {
+		this.nombre = nombre;
+		this.libros = libros;
 	}
 
 	public String getNombre() {
@@ -103,46 +112,41 @@ public class Biblioteca  {
 	}
 
 	public void writeCSV(PrintWriter salida) {
-		
-		salida.println(nombre);
-		salida.println(";");
-		
-		for (Libro libro : libros) {
-			if (libro instanceof Normal) {
-				salida.println("NORMAL");
-			}else {
-				salida.println("BOLSILLO");
-			}
-			salida.println(libro.writeCSV());
-		}
-		
+	    salida.println(nombre);
+	    for (Libro libro : libros) {
+	        if (libro instanceof Normal) {
+	            salida.print("NORMAL;");
+	        } else {
+	            salida.print("BOLSILLO;");
+	        }
+	        salida.println(libro.writeCSV());
+	    }
 	}
+
 	
 	public void readCSV(BufferedReader entrada) throws IOException {
-		
+		//LeerDatos Biblioteca
 		//Leer nombre
 	    this.nombre = entrada.readLine();
-	    //Leer separador
-	    String separator = entrada.readLine();
-		//Crear libros
-		List<Libro> libros = new ArrayList<>();
+	    List<Libro> libros = new ArrayList<>();
 	    String linea;
-		
+	    Libro libro;
+	    
 	    while (entrada.ready()) {
-	    	linea = entrada.readLine();
-	        String[] valores = linea.split(";");
-	        Libro libro;
-	        String tipo = entrada.readLine();
-	        
-	        if (tipo.equalsIgnoreCase("NORMAL")) {
-				libro= new Normal();
+	    	linea = entrada.readLine();//leo la siguiente linea (Tipo libo y resto de datos)
+	        String[] valores = linea.split(";"); // lo spliteo por ;
+	        //leo Tipo de libro
+	        if (valores[0].equalsIgnoreCase("NORMAL")) {
+				libro = new Normal();
 			}else {
-				libro= new Bolsillo();
+				libro = new Bolsillo();
 			}
+	        //leeo resto de datos
 	        libro.fromCSV(valores);
+	        //lo añado a la lista creada llamada libro;
 	        libros.add(libro);
 	    }
-	    
+	    //almaceno los libros dentro de la app
 	    this.libros = libros;
 		
 	}
@@ -178,7 +182,7 @@ public class Biblioteca  {
 				if (tipo.equalsIgnoreCase("NORMAL")) {
 					li = new Normal();
 				}else {
-					li = new Normal();
+					li = new Bolsillo();
 				}
 				li.readDAT(entrada);
 				libros.add(li);
@@ -187,6 +191,11 @@ public class Biblioteca  {
 		}else {
 			System.out.println("No hay Libros en la biblioteca");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Biblioteca [nombre=" + nombre + "]";
 	}
 
 	

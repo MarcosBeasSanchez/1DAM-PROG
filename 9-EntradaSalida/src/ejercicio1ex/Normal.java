@@ -13,7 +13,7 @@ public class Normal extends Libro implements Leer {
 	int nPag;
 	
 	public Normal(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha,
-			boolean conTapaDura, int nPag) {
+		boolean conTapaDura, int nPag) {
 		super(nombre, autor, nautores, precio, tipo, fecha);
 		this.conTapaDura = conTapaDura;
 		this.nPag = nPag;
@@ -84,7 +84,7 @@ public class Normal extends Libro implements Leer {
 
 	@Override
 	public float precioTotal() {
-		float precioTotal = nPag * super.getPrecio() / super.getTipo().getPrecioTipo();
+		float precioTotal = (nPag * super.getPrecio()) / super.getTipo().getPrecioTipo();
 		return precioTotal;
 	}
 
@@ -112,20 +112,22 @@ public class Normal extends Libro implements Leer {
 		linea += conTapaDura;
 		linea += ";";
 		linea += nPag;
+		linea += ";";
 		
 		return linea;
 	}
 	
 	@Override
 	public void fromCSV(String[] valores) throws IOException {
-		nombre = valores[0];
-		autor = valores[1];
-		nautores = Integer.parseInt(valores[2]);
-		precio = Float.parseFloat(valores[3]);
-		tipo = Tipo.valueOf(valores[4]);
-		fecha = LocalDate.parse(valores[5]);
-		conTapaDura = Boolean.parseBoolean(valores[6]);
-		nPag = Integer.parseInt(valores[7]);
+		// el valor [0] ha sido consumido como Tipo de Libro(Normal o Bolsillo)
+		nombre = valores[1];
+		autor = valores[2];
+		nautores = Integer.parseInt(valores[3]);
+		precio = Float.parseFloat(valores[4]);
+		tipo = Tipo.valueOf(valores[5]);
+		fecha = LocalDate.parse(valores[6]);
+		conTapaDura = Boolean.parseBoolean(valores[7]);
+		nPag = Integer.parseInt(valores[8]);
 	}
 
 	@Override

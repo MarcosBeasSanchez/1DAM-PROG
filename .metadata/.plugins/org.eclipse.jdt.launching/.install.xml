@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
+    <entry loc="/usr/share/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.8.v20230831-1047" stamp="1694096182404"/>
     <entry loc="/snap/eclipse/87/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.10.v20240120-1143/jre" stamp="1711619019000"/>
     <entry loc="/snap/eclipse/79/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858" stamp="1703699048000"/>
     <entry loc="/snap/eclipse/85/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.10.v20240120-1143" stamp="1710405724000"/>
     <entry loc="C:\Users\marco\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.9.v20231028-0858\jre" stamp="1699530145302"/>
     <entry loc="/snap/eclipse/73/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.8.v20230831-1047" stamp="1696404015000"/>
     <entry loc="/snap/eclipse/87/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.10.v20240120-1143" stamp="1711619019000"/>
-    <entry loc="/usr/lib/jvm/java-19-openjdk-amd64" stamp="1693909322245"/>
+    <entry loc="/usr/lib/jvm/java-19-openjdk-amd64" stamp="1693931409313"/>
     <entry loc="C:\Users\marco\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.9.v20231028-0858" stamp="1699530145305"/>
     <entry loc="/snap/eclipse/79/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858/jre" stamp="1703699048000"/>
+    <entry loc="C:\Program Files\Java\jdk-22" stamp="1714417246114"/>
     <entry loc="/snap/eclipse/73/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.8.v20230831-1047/jre" stamp="1696404015000"/>
+    <entry loc="/usr/share/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.8.v20230831-1047/jre" stamp="1694096182404"/>
     <entry loc="/snap/eclipse/81/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858/jre" stamp="1708708473000"/>
     <entry loc="/usr/lib/jvm/jdk-19" stamp="1715189409993"/>
     <entry loc="/snap/eclipse/81/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858" stamp="1708708473000"/>

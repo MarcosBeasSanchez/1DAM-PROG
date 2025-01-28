@@ -9,7 +9,7 @@ import daw.com.Teclado;
 
 public class App extends AppConMenu{
     static final String FILE_NAME = "lienzo.dat";
-    public static Lienzo lienzo;
+     Lienzo lienzo;
     
 
     public static void main(String[] args) {
@@ -24,7 +24,8 @@ public class App extends AppConMenu{
 
         if (file.exists()) {
             try (DataInputStream entrada = new DataInputStream(new FileInputStream(FILE_NAME))) {
-               lienzo.leerEntrada(entrada);
+            	lienzo = new Lienzo();
+            	lienzo.leerEntrada(entrada);
                 System.out.println("Lienzo cargado desde el archivo.");
             } catch (IOException e) {
                 System.out.println("Error al cargar el lienzo: " + e.getMessage());
@@ -45,15 +46,13 @@ public class App extends AppConMenu{
 		
 	}
 
-
-
 	public App() {
     	super();
     	System.out.println("Seleccione una opcion:");
     	addOpcion("Cambiar nombre y fecha del lienzo");
     	addOpcion("Añadir Figura");
     	addOpcion("Borrar Coordenadas");
-    	addOpcion("Exportar a CSV");	    	
+    	addOpcion("Exportar a CSV");
     }
     
     @Override
@@ -113,7 +112,7 @@ public class App extends AppConMenu{
    
     }
 
-    private static void anadirFigura() {
+    private void anadirFigura() {
     	boolean exito;
     	int fig;
     	Figura figura;
@@ -130,7 +129,6 @@ public class App extends AppConMenu{
 					figura = new Rombo();
 					figura.leerSoloDatos();
 					lienzo.addFigura(figura);
-					lienzo.listarFiguras();
 					exito = false;
 					break;
 				case 2:
@@ -144,6 +142,9 @@ public class App extends AppConMenu{
 				exito = true;
 					break;
 				}
+				
+				lienzo.listarFiguras();
+
 	
 			}else {
 				System.out.println("El nombre de la figura introducida ya existe");
@@ -154,7 +155,7 @@ public class App extends AppConMenu{
       
     }
 
-    private static void borrarCoordenadas() {
+    private  void borrarCoordenadas() {
        Figura f ;
        String nombre;
        int x, y;
@@ -201,7 +202,7 @@ public class App extends AppConMenu{
         }
     }
 
-    private static void salir() {
+    private  void salir() {
        /* try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             salida.writeObject(lienzo);
             System.out.println("Lienzo guardado " + FILE_NAME);

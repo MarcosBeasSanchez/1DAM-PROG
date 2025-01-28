@@ -85,7 +85,6 @@ class Lienzo  {
     }
     
     
-    
     public void cambiarDatos(String nombre , LocalDate fecha) {
     	this.nombre = nombre;
     	setFechaCreacion(fecha);

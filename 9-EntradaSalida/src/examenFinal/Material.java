@@ -102,11 +102,6 @@ public abstract class Material implements LeerDatos{
 		Material other = (Material) obj;
 		return Objects.equals(id, other.id);
 	}
-	@Override
-	public String toString() {
-		return "Material [id=" + id + ", nombre=" + nombre + ", fechaEstreno=" + fechaEstreno + ", categoria="
-				+ categoria + "]";
-	}
 	
 	public void escribirFichero(DataOutputStream salida) throws IOException{
 		salida.writeUTF(id);
@@ -136,5 +131,10 @@ public abstract class Material implements LeerDatos{
 	
 	public abstract String getTipo();
 	
+	@Override
+	public String toString() {
+		return "Material [id=" + id + ", nombre=" + nombre + ", fechaEstreno=" + fechaEstreno + ", categoria="
+				+ categoria + "]";
+	}
 
 }

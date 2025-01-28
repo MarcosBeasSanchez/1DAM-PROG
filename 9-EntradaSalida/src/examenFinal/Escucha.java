@@ -61,8 +61,6 @@ public class Escucha implements LeerDatos{
 		this.fechaHora = fechaHora;
 	}
 	
-	
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(idMaterial, nifcliente);
@@ -125,9 +123,16 @@ public class Escucha implements LeerDatos{
 		linea += SEPARADOR;
 		linea += fechaHora;
 		
+		System.out.println(linea);
+		
 		return linea;
 	}
 	
-	
 
+	@Override
+	public String toString() {
+		return "Escucha [nifcliente=" + nifcliente + ", idMaterial=" + idMaterial + ", fechaHora=" + fechaHora + "]";
+	}
+	
+	
 }

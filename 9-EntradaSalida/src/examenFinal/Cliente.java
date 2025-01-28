@@ -124,6 +124,8 @@ public class Cliente implements LeerDatos{
 		linea += SEPARADOR;
 		linea += cuota;
 		
+		System.out.println(linea);
+		
 		return linea;
 		
 	}

@@ -57,7 +57,7 @@ public class Cancion extends Material implements LeerDatos {
 		datos = entrada.readUTF();
 	}
 	
-	public void escribirFicheros(DataOutputStream salida) throws IOException {
+	public void escribirFichero(DataOutputStream salida) throws IOException {
 		super.escribirFichero(salida);
 		salida.writeUTF(autor);
 		salida.writeUTF(datos);
@@ -65,9 +65,15 @@ public class Cancion extends Material implements LeerDatos {
 
 	@Override
 	public String getTipo() {
-		// TODO Auto-generated method stub
-		return "Cancion";
+		return "CANCION";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "Cancion [autor=" + autor + ", datos=" + datos + "]";
+	}
+	
+	
 
 	
 }

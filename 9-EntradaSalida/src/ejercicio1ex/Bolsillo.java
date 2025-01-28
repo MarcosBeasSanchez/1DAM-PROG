@@ -21,6 +21,11 @@ public class Bolsillo extends Libro {
 		this.nPag = 0;
 	}
 	
+	public Bolsillo(String nombre, String autor, int nautores, float precio, Tipo tipo, LocalDate fecha,int npag) {
+		super(nombre, autor, nautores, precio, tipo, fecha);
+		this.nPag = npag;
+	}
+	
 	public Bolsillo() {
 		super();
 		this.nPag = 0;
@@ -39,7 +44,7 @@ public class Bolsillo extends Libro {
 
 	@Override
 	public float precioTotal() {
-		float precioTotal = nPag * super.getPrecio() / super.getTipo().getPrecioTipo();
+		float precioTotal = (nPag * super.getPrecio()) / super.getTipo().getPrecioTipo();
 		return precioTotal;
 	}
 
@@ -72,6 +77,7 @@ public class Bolsillo extends Libro {
 		linea += fecha;
 		linea += ";";
 		linea += nPag;
+		linea += ";";
 		
 		return linea;
 	}
@@ -79,13 +85,13 @@ public class Bolsillo extends Libro {
 	@Override
 	public void fromCSV(String[] valores) throws IOException {
 		
-		nombre = valores[0];
-		autor = valores[1];
-		nautores = Integer.parseInt(valores[2]);
-		precio = Float.parseFloat(valores[3]);
-		tipo = Tipo.valueOf(valores[4]);
-		fecha = LocalDate.parse(valores[5]);
-		nPag = Integer.parseInt(valores[6]);
+		nombre = valores[1];
+		autor = valores[2];
+		nautores = Integer.parseInt(valores[3]);
+		precio = Float.parseFloat(valores[4]);
+		tipo = Tipo.valueOf(valores[5]);
+		fecha = LocalDate.parse(valores[6]);
+		nPag = Integer.parseInt(valores[7]);
 		
 	}
 

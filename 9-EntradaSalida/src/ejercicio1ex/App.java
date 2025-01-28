@@ -1,8 +1,10 @@
 package ejercicio1ex;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.*;
+import java.time.LocalDate;
 
 import daw.com.Teclado;
 import practicaFinalProfe.Libreria;
@@ -20,6 +22,7 @@ public class App extends AppConMenu {
 		addOpcion("Ordenar Libros");
 		addOpcion("Exportar a .CSV");
 		addOpcion("Exportar a .DAT");
+		addOpcion("listar todo");
 	
 	}
 	
@@ -34,7 +37,9 @@ public class App extends AppConMenu {
 		File csv = new File(CSV); // 1 
 		File dat = new File(DAT); // 2
 		
-		int respuesta = Libreria.leerEntreLimites(1, 2, "Cargar 1.CSV 2.DAT");
+		int respuesta = Libreria.leerEntreLimites(1, 3, "Cargar 1.CSV / 2.DAT / 3.Cargar Datos predefinidos");
+		
+		biblioteca = new Biblioteca();
 		
 		if (respuesta == 1) {
 			if (csv.exists()) {
@@ -45,9 +50,11 @@ public class App extends AppConMenu {
 				}
 			} else {
 				System.out.println("El archivo " + CSV + " no se ha podido leer");
-				biblioteca = new Biblioteca();
+				String n = Teclado.leerString("Nombre de la biblioteca");
+				biblioteca = new Biblioteca(n);
+				
 			}
-		} else {
+		} else if (respuesta == 2){
 			if (dat.exists()) {
 				try (DataInputStream entrada = new DataInputStream(new FileInputStream(DAT))){
 					biblioteca.readDAT(entrada);
@@ -56,10 +63,21 @@ public class App extends AppConMenu {
 				}
 			} else {
 				System.out.println("El archivo " + DAT + " no se ha podido leer");
-				biblioteca = new Biblioteca();
+				String n = Teclado.leerString("Nombre de la biblioteca");
+				biblioteca = new Biblioteca(n);
 			}
+		}else {
+			cargarDatos();
 		}
 			
+	}
+
+	private void cargarDatos() {
+		biblioteca = new Biblioteca("BibliotecaPrueba",Arrays.asList(
+				new Normal("libroNormal","aut1",1,20,Tipo.AVENTURA,LocalDate.EPOCH,true,50),
+				new Bolsillo("libroBolsillo","aut2",2,35,Tipo.TERROR,LocalDate.EPOCH,30)
+				));
+		
 	}
 
 	@Override
@@ -80,7 +98,17 @@ public class App extends AppConMenu {
 		case 5:
 			exportarDat(); // Binario
 			break;
+		case 6:
+			listarBiblioteca(); // Binario
+			break;
 		}
+	}
+
+	private void listarBiblioteca() {
+		System.out.println(biblioteca);
+		System.out.println("LIBROS: ");
+		biblioteca.listarLibros();
+		
 	}
 
 	private void cambiarDatos() {
@@ -132,14 +160,14 @@ public class App extends AppConMenu {
 		List<Libro> LibrosNombre = new ArrayList<>();
 		List<Libro> LibrosPrecio = new ArrayList<>();
 		
-		res = Libreria.leerEntreLimites(1, 2, "Listar por: 1.Nombre 2.Precio");
+		res = Libreria.leerEntreLimites(1, 2, "Listar por: 1.Nombre 2.Precio Total");
 		
 		if (res == 1) {
 			//filtrar por nombre del libro
 			LibrosNombre.addAll(biblioteca.libros);
 			LibrosNombre.sort((o1, o2) -> o1.getNombre().compareTo(o2.getNombre()));
 			for (Libro libro : LibrosNombre) {
-				System.out.println(libro.toString());
+				System.out.println(libro);
 			}
 		}else {
 			//filtar por precio final
@@ -157,7 +185,7 @@ public class App extends AppConMenu {
 		try (PrintWriter salida = new PrintWriter(new FileWriter(CSV))){
 			biblioteca.writeCSV(salida);
 		} catch (IOException e) {
-			System.out.println("Error guardando .Csv");
+			System.out.println("Error guardando .CSV");
 		}
 		System.out.println(CSV + " guardado correctamente");
 	}
@@ -167,7 +195,7 @@ public class App extends AppConMenu {
 		try (DataOutputStream salida = new DataOutputStream(new FileOutputStream(DAT))){
 			biblioteca.writeDAT(salida);
 		} catch (IOException e) {
-			System.out.println("Error guardando .Dat");
+			System.out.println("Error guardando .DAT");
 		}
 		System.out.println(DAT + " guardado correctamente");
 		

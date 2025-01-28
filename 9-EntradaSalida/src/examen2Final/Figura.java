@@ -119,8 +119,9 @@ abstract class Figura implements LeerDatos {
 		int cuantos;
 		boolean exito;
 		do {
+			exito = false;
 			try {
-				exito = false;
+				
 				setTipo(Tipo.valueOf(Teclado.leerString("Tipo LINEA/PUNTOS/LINEA_PUNTEADA").toUpperCase()));
 				setGrosor(Teclado.leerInt("Grosor de la figura"));
 				setColor(Teclado.leerInt("Color de la figura"));

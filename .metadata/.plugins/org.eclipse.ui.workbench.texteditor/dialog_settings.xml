@@ -10,8 +10,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Main"/>
+		<item key="selection" value="get"/>
 		<list key="findhistory">
+			<item value="jugadorActual"/>
+			<item value="get"/>
+			<item value="getTipo"/>
 			<item value="main"/>
 		</list>
 		<list key="replacehistory">

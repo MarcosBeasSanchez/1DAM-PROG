@@ -52,7 +52,7 @@ class Rombo extends Figura implements LeerDatos{
 
     @Override
     public String toString() {
-        return "Rombo: " + nombre + " con lado mayor " + ladoMayor + " y lado menor " + ladoMenor;
+        return super.toString() + "Rombo: " + nombre + " con lado mayor " + ladoMayor + " y lado menor " + ladoMenor;
     }
     
     public void guardarDatos(DataOutputStream salida) throws IOException {

@@ -29,8 +29,9 @@ public class App extends AppConMenu{
 		super();
 		addOpcion("Insertar nuevo material");
 		addOpcion("Dar de alta a un nuevo cliente");
-		addOpcion("Realizar una ecucha");
+		addOpcion("Realizar una escucha");
 		addOpcion("Añadir catalan a todos los podcast que no lo tengan");
+		addOpcion("Ver todo");
 		
 		plataforma = new Plataforma();
 	}
@@ -42,59 +43,8 @@ public class App extends AppConMenu{
 		app.inicio();
 		app.run();
 		
-
 	}
-
-	private void inicio() {
-		cargarClientes();
-		cargarMateriales();
-		cargarEscuchas();
-		
-	}
-
-
-	private void cargarEscuchas() {
-		File archivo = new File (escuchas_archivo);
-		if (archivo.exists()) {
-			try (BufferedReader buffer = new BufferedReader(new FileReader(escuchas_archivo))){
-				plataforma.cargarClientes(buffer);
-			} catch (IOException e) {
-				System.out.println("Error leyendo Escuchas");
-			}
-		}
-		
-	}
-
-
-	private void cargarMateriales() {
-		File archivo = new File (materiales_archivo);
-		if (archivo.exists()) {
-			try (DataInputStream data = new DataInputStream(new FileInputStream(materiales_archivo))){
-				plataforma.cargarMateriales(data);
-				
-			} catch (IOException e) {
-				System.out.println("Error leyendo materiales");
-			}
-		}
-		
-	}
-
-
-	private void cargarClientes() {  
-		File archivo = new File (clientes_archivo);
-		
-		if (archivo.exists()) {
-			try (BufferedReader buffer = new BufferedReader(new FileReader(clientes_archivo))){
-				plataforma.cargarClientes(buffer);
-				
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-				System.out.println("Error leyendo datos");
-			}
-		}
-	}
-
-
+	
 	@Override
 	public void evaluarOpcion(int opc) {
 		
@@ -112,9 +62,62 @@ public class App extends AppConMenu{
 				catalan();
 			break;
 		case 5:
-				salir();
+				verTodo();
 			break;
+		case 6:
+				salir();
+		break;
 		}	
+	}
+
+	private void inicio() {
+		cargarClientes();
+		cargarMateriales();
+		cargarEscuchas();
+	}
+
+	private void cargarEscuchas() {
+		File archivo = new File (escuchas_archivo);
+		if (archivo.exists()) {
+			try (BufferedReader buffer = new BufferedReader(new FileReader(escuchas_archivo))){
+				plataforma.cargarEscuchas(buffer);
+				System.out.println("Escuchas cargadas correctamente: " + escuchas_archivo);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Error leyendo Escuchas");
+			}
+		}
+		
+	}
+
+	private void cargarMateriales() {
+		File archivo = new File (materiales_archivo);
+		if (archivo.exists()) {
+			try (DataInputStream data = new DataInputStream(new FileInputStream(materiales_archivo))){
+				plataforma.cargarMateriales(data);
+				System.out.println("Materiales cargados correctamente: " + materiales_archivo);
+				
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Error leyendo materiales");
+			}
+		}
+		
+	}
+
+	private void cargarClientes() {  
+		File archivo = new File (clientes_archivo);
+		
+		if (archivo.exists()) {
+			try (BufferedReader buffer = new BufferedReader(new FileReader(clientes_archivo))){
+				plataforma.cargarClientes(buffer);
+				System.out.println("Clientes cargados correctamente: " + clientes_archivo);
+				
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Error leyendo clientes");
+			}
+		}
 	}
 
 	private void salir() {
@@ -134,7 +137,6 @@ public class App extends AppConMenu{
 		
 	}
 
-
 	private void guardarMateriales() {
 		try (DataOutputStream salida = new DataOutputStream(new FileOutputStream(materiales_archivo))){
 			plataforma.guardarMateriales(salida);
@@ -144,7 +146,6 @@ public class App extends AppConMenu{
 		
 	}
 
-
 	private void guardarClientes() {
 		try (PrintWriter pw = new PrintWriter(new FileWriter(clientes_archivo))){
 			plataforma.guardarClientes(pw);
@@ -153,7 +154,17 @@ public class App extends AppConMenu{
 		}
 		
 	}
-
+	
+	private void verTodo() {
+		if (plataforma.existenDatos()) {
+			System.out.println("listando...");
+			plataforma.listarClientes();
+			plataforma.listarMaterialesExistentes();
+			plataforma.listarEscuchas();
+		} else {
+			System.out.println("No hay datos que mostrar");
+		}
+	}
 
 	private void catalan() {
 		
@@ -164,16 +175,26 @@ public class App extends AppConMenu{
 			 Podcast podcast = (Podcast) i;
 	            if (filtroCatalan.test(podcast)) { //si cumple los requisitos de la clase filtroCatalan:
 	                podcast.getIdiomas().add("Catalán");// añade Catalán a todos estos
-	                System.out.println("Catalán añadido a " + i.getTipo() + " " + i.getId() + " " + i.getNombre());
+	                System.out.println("Catalán añadido a " + i.getTipo() + " ID-> " + i.getId() + " Nombre -> " + i.getNombre());
 	            }
 			}
 		}
+	//otra forma con streams
+	
+	/*
+	plataforma.materiales.stream()
+    .filter(i -> i instanceof Podcast) 
+    .map(i -> (Podcast) i) // Hacemos el casting a Podcast
+    .filter(podcast -> !podcast.getIdiomas().contains("Catalán") && podcast.getFechaEstreno().isBefore(LocalDate.now().minusYears(1))) // Condición
+    .forEach(podcast -> { podcast.getIdiomas().add("Catalán"); // Añadimos "Catalán" a los idiomas
+        System.out.println("Catalán añadido a " + podcast.getTipo() + " ID-> " + podcast.getId() + " Nombre -> " + podcast.getNombre());
+    });*/
 	}
 
 	private void realizarEscucha() {
 		String id,seleccion;
 		boolean exito ;
-		Comparator <Material> comparadorPorNombre = new ComparadorPorNombre();
+		Comparator <Material> comparadorPorNombre = new ComparadorPorNombre(); // sin lambda
 		List<Material>materialesDisponibles;
 		
 		do {
@@ -189,15 +210,13 @@ public class App extends AppConMenu{
 						materialesDisponibles.add(material);
 					}
 				}
-				
-				Collections.sort(materialesDisponibles,comparadorPorNombre); //ordenado
+				//Collections.sort(materialesDisponibles,comparadorPorNombre);
+				Collections.sort(materialesDisponibles,(o1, o2) -> o1.getNombre().compareTo(o2.getNombre())); //ordenado
 				
 				if (!materialesDisponibles.isEmpty()) {
 					System.out.println("Materiales estrenados: ");
 					for (Material material : materialesDisponibles) {
-						System.out.println("ID : " + material.getId()+
-											" Tipo: " + material.getTipo() +
-											" Nombre: " + material.getNombre());
+						System.out.println("ID : " + material.getId()+" Tipo: " + material.getTipo() + " Nombre: " + material.getNombre());
 					}
 					
 					seleccion = Teclado.leerString("Seleciona un material por su ID para escuchar");
@@ -205,6 +224,7 @@ public class App extends AppConMenu{
 					if (plataforma.existeMaterial(seleccion)) {
 						Escucha escuchaSeleccion = new Escucha(id,seleccion);
 						plataforma.addEscucha(escuchaSeleccion);
+						System.out.println(escuchaSeleccion);
 						System.out.println("Escucha realizada con exito");
 						exito = false;
 					} else {
@@ -225,8 +245,6 @@ public class App extends AppConMenu{
 		} while (exito);
 		
 	}
-		
-	
 
 	private void darAltaCliente() {
 		String id;
@@ -239,6 +257,7 @@ public class App extends AppConMenu{
 			if (!plataforma.existeCliente(id)) {
 				cliente = new Cliente(id);
 				cliente.leerDatos();
+				System.out.println(cliente);
 				plataforma.addCliente(cliente);
 			}else {
 				System.out.println("ID del cliente ya existe");
@@ -260,7 +279,7 @@ public class App extends AppConMenu{
 		if (!plataforma.existeMaterial(id)) {
 			
 			do {
-				opc=Teclado.leerInt("1.podcast/2.cancion");
+				opc = Teclado.leerInt("1.podcast/2.cancion");
 				switch (opc) {
 				case 1:
 					m = new Podcast(id);
@@ -276,6 +295,7 @@ public class App extends AppConMenu{
 			
 			m.leerSoloDatos();
 			plataforma.addMaterial(m);
+			plataforma.listarMaterialesExistentes();
 			exito = false;
 			
 		}else {

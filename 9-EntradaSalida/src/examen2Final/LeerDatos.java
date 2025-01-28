@@ -6,7 +6,10 @@ public interface LeerDatos {
 	void leerDatos();
 	
 	default void leerSoloDatos(){
-		
+		leerDatos();
+	}
+	default void leerTodo() {
+		leerID();
 		leerDatos();
 	}
 	

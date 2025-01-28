@@ -2,7 +2,7 @@ package ejercicio1ex;
 
 public enum Tipo {
 	
-	COMEDIA (0), TERROR(0.5f) , AVENTURA (0.75f), NOVELA (1);
+	COMEDIA (0f), TERROR(0.5f) , AVENTURA (0.75f), NOVELA (1f);
 	
 	private final float precio;
 

@@ -60,12 +60,17 @@ public class Podcast extends Material implements LeerDatos {
 	@Override
 	public void leerSoloDatos() {
 		boolean exito;
+		int cuantos;
 		super.leerSoloDatos();
 		do {
 			try {
 				exito = false;
 				setnCapitulo(Teclado.leerInt("Capitulo nº?"));
-				añadirIdioma(Teclado.leerString("Idioma por defecto"));
+				cuantos = Teclado.leerInt("¿Cuantos idiomas quieres introducir? ");
+				for (int i = 0; i < cuantos; i++) {
+					añadirIdioma(Teclado.leerString("Idioma" + i));
+				}
+				
 			} catch (IllegalArgumentException e) {
 				exito = true;
 				System.out.println(e.getMessage());
@@ -73,6 +78,7 @@ public class Podcast extends Material implements LeerDatos {
 		} while (exito);	
 	}
 	
+
 	public void leerFichero(DataInputStream entrada) throws IOException{
 		super.leerFichero(entrada);
 		nCapitulo = entrada.readInt(); //numero de capitulo
@@ -105,9 +111,15 @@ public class Podcast extends Material implements LeerDatos {
 
 	@Override
 	public String getTipo() {
-		// TODO Auto-generated method stub
-		return "Podcast";
+		return "PODCAST";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "Podcast [nCapitulo=" + nCapitulo + ", idiomas=" + idiomas + "]";
+	}
+	
+	
 
 
 	
