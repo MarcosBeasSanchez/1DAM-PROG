@@ -1,9 +1,7 @@
 package examen2Final;
 
 enum Tipo {
-    LINEA(1),
-    PUNTOS(0.50),
-    LINEA_PUNTEADA(0.75);
+    LINEA(1),PUNTOS(0.50),LINEA_PUNTEADA(0.75);
 
 	private final double value;
 

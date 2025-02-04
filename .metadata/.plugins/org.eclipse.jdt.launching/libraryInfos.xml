@@ -10,6 +10,18 @@
     <libraryInfo home="/usr/lib/jvm/java-19-openjdk-amd64" version="19.0.2"/>
     <libraryInfo home="C:\Users\marco\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.9.v20231028-0858" version="17.0.9"/>
     <libraryInfo home="/snap/eclipse/79/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858/jre" version="17.0.9"/>
+    <libraryInfo home="/usr/share/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.5.v20241023-1957/jre" version="21.0.5"/>
+    <libraryInfo home="/usr/share/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.5.v20241023-1957" version="21.0.5">
+        <bootpath>
+            <entry path="null"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="null"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="null"/>
+        </endorsedDirs>
+    </libraryInfo>
     <libraryInfo home="C:\Program Files\Java\jdk-22" version="22.0.1"/>
     <libraryInfo home="/snap/eclipse/73/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.8.v20230831-1047/jre" version="17.0.8.1"/>
     <libraryInfo home="/usr/share/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.8.v20230831-1047/jre" version="17.0.8.1"/>

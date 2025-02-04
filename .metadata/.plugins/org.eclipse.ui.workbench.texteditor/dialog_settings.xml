@@ -10,8 +10,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="get"/>
+		<item key="selection" value="leerS"/>
 		<list key="findhistory">
+			<item value="tarea marcada"/>
+			<item value="leerSolo"/>
+			<item value="leerDatos"/>
 			<item value="jugadorActual"/>
 			<item value="get"/>
 			<item value="getTipo"/>

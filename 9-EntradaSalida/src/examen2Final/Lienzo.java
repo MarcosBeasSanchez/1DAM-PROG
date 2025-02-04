@@ -115,7 +115,7 @@ class Lienzo  {
 
 	public void listarFiguras() {
 		for (Figura figura : figuras) {
-			System.out.println(figura.toString());
+			System.out.println(figura);
 		}
 		
 	}

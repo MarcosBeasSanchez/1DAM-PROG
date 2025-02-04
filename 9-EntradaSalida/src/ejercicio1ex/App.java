@@ -40,7 +40,7 @@ public class App extends AppConMenu {
 		int respuesta = Libreria.leerEntreLimites(1, 3, "Cargar 1.CSV / 2.DAT / 3.Cargar Datos predefinidos");
 		
 		biblioteca = new Biblioteca();
-		
+		//LEER CSV
 		if (respuesta == 1) {
 			if (csv.exists()) {
 				try (BufferedReader entrada = new BufferedReader(new FileReader(CSV))){
@@ -54,6 +54,7 @@ public class App extends AppConMenu {
 				biblioteca = new Biblioteca(n);
 				
 			}
+			//LEER DAT
 		} else if (respuesta == 2){
 			if (dat.exists()) {
 				try (DataInputStream entrada = new DataInputStream(new FileInputStream(DAT))){
@@ -67,6 +68,7 @@ public class App extends AppConMenu {
 				biblioteca = new Biblioteca(n);
 			}
 		}else {
+			//Cargar datos predefinidos
 			cargarDatos();
 		}
 			

@@ -48,7 +48,7 @@ public class Joven extends Persona implements LeerDatos {
 
 	@Override
 	public String toString() {
-		return  super.toString() + " Joven [cuota=" + cuota + ", carnetEstudiante=" + carnetEstudiante + "]";
+		return  super.toString() + " Joven [carnetEstudiante=" + carnetEstudiante + "]";
 	}
 
 	@Override
@@ -81,6 +81,8 @@ public class Joven extends Persona implements LeerDatos {
 		linea += SEPARADOR;
 		linea += categoria;
 		linea += SEPARADOR;
+		linea += libros.size();
+		linea += SEPARADOR;
 		
 		for (Libro libro : libros) {
 			linea += libro.toCsv();
@@ -88,6 +90,8 @@ public class Joven extends Persona implements LeerDatos {
 		
 		linea += carnetEstudiante;
 		linea += SEPARADOR;
+		
+		System.out.println(linea);
 		
 		return linea;
 	}

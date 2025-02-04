@@ -9,7 +9,9 @@ import java.util.List;
 import daw.com.Teclado;
 
 abstract class Figura implements LeerDatos {
-    String nombre;
+  
+
+	String nombre;
     Tipo tipo;
     int grosor;
     int color;
@@ -54,6 +56,9 @@ abstract class Figura implements LeerDatos {
 	}
 
 	public void setTipo(Tipo tipo) {
+		if (tipo == null) {
+			throw new IllegalArgumentException("Tipo no valido");
+		}
 		
 		this.tipo = tipo;
 	}
@@ -125,6 +130,7 @@ abstract class Figura implements LeerDatos {
 				setTipo(Tipo.valueOf(Teclado.leerString("Tipo LINEA/PUNTOS/LINEA_PUNTEADA").toUpperCase()));
 				setGrosor(Teclado.leerInt("Grosor de la figura"));
 				setColor(Teclado.leerInt("Color de la figura"));
+				
 				cuantos = Teclado.leerInt("Cuantos puntos tiene esta figura?");
 				for (int i = 0; i < cuantos; i++) {
 					p = new Punto();
@@ -132,8 +138,7 @@ abstract class Figura implements LeerDatos {
 					puntos.add(p);
 				}
 				
-				
-			} catch (IllegalArgumentException e ) {
+			} catch (Exception e ) {
 				System.out.println(e.getMessage());
 				exito = true;
 			}
@@ -187,11 +192,14 @@ abstract class Figura implements LeerDatos {
 			p.leerEntrada(entrada);
 			puntos.add(p);
 		}
-		 
-		
-		
 	}
-
+	
+	
+	 @Override
+		public String toString() {
+			return "Figura [nombre=" + nombre + ", tipo=" + tipo + ", grosor=" + grosor + ", color=" + color + ", puntos="
+					+ puntos + "]";
+		}
 	
 	
 	

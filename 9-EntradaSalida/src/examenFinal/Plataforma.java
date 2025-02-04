@@ -21,7 +21,6 @@ public class Plataforma {
 	}
 	
 	public void cargarClientes(BufferedReader br) throws IOException {
-		
 			String linea;
 			Cliente cliente;
 			while (br.ready()) {
@@ -37,7 +36,6 @@ public class Plataforma {
 			String linea;
 			Escucha escucha;
 
-			
 			while(br.ready()) {
 				linea = br.readLine();
 				escucha = new Escucha();

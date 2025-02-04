@@ -92,16 +92,12 @@ public class App extends AppConMenu {
 		
 	
 	private void guardar(PrintWriter pw) {
-		
 		for (Persona persona : personas) {
-			if (persona instanceof Joven) {
-                pw.print("Joven;");
-                } else {
-                	pw.print("Veterano;");
-                }
+			pw.print(persona instanceof Joven ? "Joven;" : "Veterano;");
 			pw.println(persona.toCsv());
+			//mostrar por consola lo que se guarda
+			System.out.println(persona);
 		}
-		
 	}
 
 	@Override

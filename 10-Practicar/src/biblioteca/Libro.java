@@ -150,11 +150,11 @@ public class Libro implements LeerDatos{
 	}
 
 	public void fromCsv(String[] valores) {
-		isbn = valores[0];
-		nLibro = valores[1];
+		isbn = valores[8];
+		nLibro = valores[9];
 		int cuantos = Integer.parseInt(valores[10]);
 		for (int i = 0; i < cuantos; i++) {
-			autores.add(valores[3 + i]);
+			autores.add(valores[11]);
 		}
 		
 		
